@@ -19,7 +19,7 @@ public class DFA
     private final String alphabet;
     private State currentState;
     
-    private static final int INITIAL_STATE_ID = 0;
+    static final int INITIAL_STATE_ID = 0;
     
     /**
      * Initiates a new deterministic finite-state automaton over the given alphabet with an empty state set.
@@ -136,5 +136,20 @@ public class DFA
         }
         
         return builder.toString().trim();
+    }
+    
+    HashMap<Integer, State> getStates()
+    {
+        return (HashMap<Integer, State>)states.clone();
+    }
+    
+    ArrayList<Integer> getFinalStates()
+    {
+        return (ArrayList<Integer>)acceptingStates.clone();
+    }
+    
+    String getAlphabet()
+    {
+        return alphabet;
     }
 }

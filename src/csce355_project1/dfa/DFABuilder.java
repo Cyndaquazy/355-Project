@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -17,6 +18,12 @@ import java.util.ArrayList;
  */
 public class DFABuilder
 {
+    /**
+     * Instantiates and creates a DFA directly from a definitions file.
+     * @param fileName The path to the DFA definition file.
+     * @return A DFA that conforms to the definitions given.
+     * @throws IOException If there is an error while reading from the file or parsing the data therein.
+     */
     public static DFA loadFromFile(String fileName) throws IOException
     {
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
@@ -85,5 +92,34 @@ public class DFABuilder
         }
         
         return theDFA;
+    }
+    
+    public static DFA makeSaneDFA(DFA insane)
+    {
+        String originalAlphabet = insane.getAlphabet();
+        char[] originalAlphabetArray = originalAlphabet.toCharArray();
+        ArrayList<Integer> originalFinals = insane.getFinalStates();
+        HashMap<Integer, State> originalStates = insane.getStates();
+        
+        ArrayList<Integer> reachableStates = new ArrayList<>();
+        reachableStates.add(DFA.INITIAL_STATE_ID);
+        
+        DFA saneDFA = new DFA(originalAlphabet, originalFinals);
+        
+        for (int stateID : reachableStates)
+        {
+            State theState = originalStates.get(stateID);
+            
+            for (char c : originalAlphabetArray)
+            {
+                int reachableID = theState.transitionOn(c).getIdentifier();
+                if (!reachableStates.contains(reachableID))
+                {
+                    reachableStates.add(reachableID);
+                }
+            }
+        }
+        
+        return null;
     }
 }
