@@ -37,7 +37,6 @@ public class DFABuilder
         try
         {
             numberStates = Integer.parseInt(reader.readLine().substring(18));
-            Messenger.info(numberStates + " states");
         }
         catch (NumberFormatException nfe)
         {
@@ -54,7 +53,6 @@ public class DFABuilder
             for (String s : states)
             {
                 int i = Integer.parseInt(s);
-                Messenger.info(i + " accepts");
                 acceptingStates.add(i);
             }
         }
@@ -67,7 +65,6 @@ public class DFABuilder
         
         // Third line is the alphabet string, given as "Alphabet: stringofchars"
         alphabet = reader.readLine().substring(10);
-        Messenger.info("Sigma := " + alphabet);
         
         
         // Now we can dynamically create the DFA!
@@ -86,7 +83,6 @@ public class DFABuilder
             
             for (int transIdx = 0; transIdx < transitions.length; transIdx++)
             {
-                Messenger.info(String.format("%d -> %d on %s", stateID, Integer.parseInt(transitions[transIdx]), alphabet.charAt(transIdx)));
                 theDFA.addTransition(stateID, Integer.parseInt(transitions[transIdx]), alphabet.charAt(transIdx));
             }
         }
@@ -94,32 +90,64 @@ public class DFABuilder
         return theDFA;
     }
     
+    /**
+     * Transforms the given DFA into a sane DFA. A sane DFA is a DFA where all states are accessible from the initial state.
+     * @param insane The DFA to make sane.
+     * @return An equivalent sane DFA.
+     */
     public static DFA makeSaneDFA(DFA insane)
     {
+        // Collect some of the basic properties from the original DFA.
         String originalAlphabet = insane.getAlphabet();
         char[] originalAlphabetArray = originalAlphabet.toCharArray();
         ArrayList<Integer> originalFinals = insane.getFinalStates();
         HashMap<Integer, State> originalStates = insane.getStates();
         
+        // Create a list for storing reachable states and initialize it with the INITIAL_STATE.
         ArrayList<Integer> reachableStates = new ArrayList<>();
         reachableStates.add(DFA.INITIAL_STATE_ID);
         
-        DFA saneDFA = new DFA(originalAlphabet, originalFinals);
+        // Also create a new list of final states, in case some in the original set are dropped.
+        ArrayList<Integer> newFinals = new ArrayList<>();
         
-        for (int stateID : reachableStates)
+        // Now, go through every reachable state and add in all other new states directly reachable from it.
+        // This loop iterates over the size of the reachableStates array, which may grow as new states are found.
+        for (int idx = 0; idx < reachableStates.size(); idx++)
         {
+            int stateID = reachableStates.get(idx);
+            
             State theState = originalStates.get(stateID);
             
+            // If the current state was accepting in the old DFA, make it accepting in the new DFA.
+            if (originalFinals.contains(stateID))
+            {
+                newFinals.add(stateID);
+            }
+            
+            // Loop through the alphabet and add all states the current state transitions into to the list of reachable
+            // states (provided they haven't been added yet).
             for (char c : originalAlphabetArray)
             {
                 int reachableID = theState.transitionOn(c).getIdentifier();
+                
                 if (!reachableStates.contains(reachableID))
                 {
                     reachableStates.add(reachableID);
                 }
             }
         }
+
+        // Propery initialize the new saneDFA object.
+        DFA saneDFA = new DFA(originalAlphabet, newFinals);
         
-        return null;
+        // Add to that DFA only the states reachable from the start state.
+        // We can be sure that even when adding the states directly that there are no lost references, since if a state
+        // is pointed by a state in the reachable set, then it is also in the reachable set.
+        for (int stateID : reachableStates)
+        {
+            saneDFA.addStateDirectly(originalStates.get(stateID));
+        }
+        
+        return saneDFA;
     }
 }

@@ -11,7 +11,7 @@ import java.util.HashMap;
  *
  * @author cyndaquazy
  */
-class State
+public class State
 {
     private final HashMap<Character, State> transitions;
     private final int identifier;
@@ -42,5 +42,11 @@ class State
     int getIdentifier()
     {
         return this.identifier;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return String.format("ID:%d;FINAL:%s", identifier, (isAccepting)?"TRUE":"FALSE");
     }
 }

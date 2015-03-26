@@ -7,6 +7,7 @@ package csce355_project1.dfa;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  *
@@ -80,8 +81,8 @@ public class DFA
     /**
      * Simulates this DFA on the given input string starting from the given state.
      * @param startID The identifier of the state to start the simulation from.
-     * @param input
-     * @return 
+     * @param input The input string to read.
+     * @return The end state after reading the input.
      */
     public int partialRead(int startID, String input)
     {
@@ -93,6 +94,20 @@ public class DFA
         }
         
         return currentState.getIdentifier();
+    }
+    
+    public int partialRead(int startID, char input)
+    {
+        currentState = states.get(startID);
+        
+        readCharacter(input);
+        
+        return currentState.getIdentifier();
+    }
+    
+    public int getNumberOfStates()
+    {
+        return states.size();
     }
     
     /**
@@ -116,14 +131,9 @@ public class DFA
         
         builder.append(newline).append("Alphabet: ").append(alphabet).append(newline);
         
-        for (char c : this.alphabet.toCharArray())
-        {
-            builder.append(c).append(" ");
-        }
+        Set<Integer> keySet = states.keySet();
         
-        builder.append(newline);
-        
-        for (int i = 0; i < states.keySet().size(); i++)
+        for (int i : keySet)
         {
             State s = states.get(i);
             
@@ -138,18 +148,23 @@ public class DFA
         return builder.toString().trim();
     }
     
-    HashMap<Integer, State> getStates()
+    public HashMap<Integer, State> getStates()
     {
-        return (HashMap<Integer, State>)states.clone();
+        return states;
     }
     
-    ArrayList<Integer> getFinalStates()
+    public ArrayList<Integer> getFinalStates()
     {
-        return (ArrayList<Integer>)acceptingStates.clone();
+        return acceptingStates;
     }
     
-    String getAlphabet()
+    public String getAlphabet()
     {
         return alphabet;
+    }
+    
+    void addStateDirectly(State s)
+    {
+        states.put(s.getIdentifier(), s);
     }
 }
