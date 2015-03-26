@@ -21,6 +21,7 @@ Read the desription of a DFA from a text file and write (to `stdout`) the descri
 
 *Status*: **Implemented**
 
+*****
 ##### (3) Text Search
 
 Read a string *w* from a text, and write to `stdout` the description of a DFA that accepts a string *x* if and only if *w* is a substring of *x*.
