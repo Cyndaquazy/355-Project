@@ -47,4 +47,4 @@ Read the descriptions of a DFA *N* and a homomorphism *h* and write to `stdout` 
 
 Read from a text file the descriptions of a DFA *A* and write to `stdout` whether or not *L(A)* is empty and whether or not *L(A)* is infinite.
 
-*Status*: **Not implemented**
+*Status*: **In Progress**
