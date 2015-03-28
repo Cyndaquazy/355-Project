@@ -100,7 +100,6 @@ public class DFABuilder
         // Collect some of the basic properties from the original DFA.
         String originalAlphabet = insane.getAlphabet();
         char[] originalAlphabetArray = originalAlphabet.toCharArray();
-        ArrayList<Integer> originalFinals = insane.getFinalStates();
         HashMap<Integer, State> originalStates = insane.getStates();
         
         // Create a list for storing reachable states and initialize it with the INITIAL_STATE.
@@ -116,10 +115,8 @@ public class DFABuilder
         {
             int stateID = reachableStates.get(idx);
             
-            State theState = originalStates.get(stateID);
-            
             // If the current state was accepting in the old DFA, make it accepting in the new DFA.
-            if (originalFinals.contains(stateID))
+            if (insane.isAcceptingState(stateID))
             {
                 newFinals.add(stateID);
             }
@@ -128,7 +125,7 @@ public class DFABuilder
             // states (provided they haven't been added yet).
             for (char c : originalAlphabetArray)
             {
-                int reachableID = theState.transitionOn(c).getIdentifier();
+                int reachableID = insane.partialRead(stateID, c);
                 
                 if (!reachableStates.contains(reachableID))
                 {

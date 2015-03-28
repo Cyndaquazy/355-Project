@@ -20,7 +20,7 @@ public class DFA
     private final String alphabet;
     private State currentState;
     
-    static final int INITIAL_STATE_ID = 0;
+    public static final int INITIAL_STATE_ID = 0;
     
     /**
      * Initiates a new deterministic finite-state automaton over the given alphabet with an empty state set.
@@ -38,7 +38,7 @@ public class DFA
      * Simulates this DFA on a single character read, updating the current state as appropriate.
      * @param c 
      */
-    public void readCharacter(char c)
+    private void readCharacter(char c)
     {
         currentState = currentState.transitionOn(c);
     }
@@ -73,7 +73,31 @@ public class DFA
      */
     public boolean doesAccept(String input)
     {
-        int stateFinal = partialRead(INITIAL_STATE_ID, input);
+        return partialDoesAccept(INITIAL_STATE_ID, input);
+    }
+    
+    /**
+     * Simulates this DFA on the given character starting at the given state.
+     * @param startID The state to start simulating from.
+     * @param input The character to advance on.
+     * @return Whether or not the input string is recognized.
+     */
+    public boolean partialDoesAccept(int startID, char input)
+    {
+        int stateFinal = partialRead(startID, input);
+        
+        return states.get(stateFinal).isAccepting();
+    }
+    
+    /**
+     * Simulates this DFA on the given input string starting at the given state.
+     * @param startID TEh state to start simulating from.
+     * @param input The input string to simulate the DFA over.
+     * @return Whether or not the input string is recognized.
+     */
+    public boolean partialDoesAccept(int startID, String input)
+    {
+        int stateFinal = partialRead(startID, input);
         
         return states.get(stateFinal).isAccepting();
     }
@@ -96,13 +120,33 @@ public class DFA
         return currentState.getIdentifier();
     }
     
+    /**
+     * Simulates this DFA on the given character starting from the given state.
+     * @param startID The identifier of the state to start the simulation from.
+     * @param input The character to read.
+     * @return The end state after reading the input.
+     */
     public int partialRead(int startID, char input)
     {
-        currentState = states.get(startID);
-        
-        readCharacter(input);
-        
-        return currentState.getIdentifier();
+        return partialRead(startID, String.valueOf(input));
+    }
+    
+    /**
+     * Returns whether or not the given state is an accepting state for the DFA.
+     * NOTE: if the state is not in the DFA, this function will return {@code false}.
+     * @param stateID The state in question.
+     * @return Whether or not the state is accepting or not.
+     */
+    public boolean isAcceptingState(int stateID)
+    {
+        if (states.containsKey(stateID))
+        {
+            return states.get(stateID).isAccepting();
+        }
+        else
+        {
+            return false;
+        }
     }
     
     public int getNumberOfStates()

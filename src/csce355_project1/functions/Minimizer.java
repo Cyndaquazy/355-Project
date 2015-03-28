@@ -19,7 +19,6 @@ public class Minimizer
 {
     public static void run(String descriptionFileName)
     {
-        Messenger.info("Minimizing from " + descriptionFileName);
         
         try
         {
@@ -31,7 +30,6 @@ public class Minimizer
             
             // Gather some properties of that sane DFA: number of states, its final states, and its alphabet.
             int numberSaneStates = saneDFA.getNumberOfStates();
-            ArrayList<Integer> finals = saneDFA.getFinalStates();
             String alphabet = saneDFA.getAlphabet();
             
             // Initialize the distinguishables table.
@@ -42,8 +40,8 @@ public class Minimizer
             {
                 for (int q = 0; q < numberSaneStates; q++)
                 {
-                    boolean pFinal = finals.contains(p);
-                    boolean qFinal = finals.contains(q);
+                    boolean pFinal = saneDFA.isAcceptingState(p);
+                    boolean qFinal = saneDFA.isAcceptingState(q);
                     
                     distinguished[p][q] = pFinal ^ qFinal; // NOTE: ^, normally bitwise XOR, is override for booleans to also provide logical XOR functionality.
                 }
@@ -93,6 +91,7 @@ public class Minimizer
             for (int i = 0; i < numberSaneStates; i++) System.err.printf(" %2d", i);
             
             System.err.println();
+            System.err.println();
             
             for (int p = 0; p < numberSaneStates; p++)
             {
@@ -119,7 +118,7 @@ public class Minimizer
             for (int p = 0; p < numberSaneStates; p++)
             {
                 boolean currentlyUnique = true;
-                boolean isFinal = finals.contains(p);
+                boolean isFinal = saneDFA.isAcceptingState(p);
                 
                 // For every possible state, see if an equivalent has already been added.
                 for (int q : addedStates)

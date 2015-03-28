@@ -19,7 +19,6 @@ public class Simulator
 {
     public static void run(String dfaFileName, String textFileName)
     {
-        Messenger.info("Simulating " + dfaFileName + " on " + textFileName);
         
         try
         {
