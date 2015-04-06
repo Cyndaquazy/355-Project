@@ -1,0 +1,3 @@
+-classpath src/csce355_project1;src/csce355_project1/dfa;src/csce355_project1/functions
+-s         compiled/srcs
+-d         compiled/classes

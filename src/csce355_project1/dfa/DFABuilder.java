@@ -29,7 +29,7 @@ public class DFABuilder
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
         
         int numberStates;
-        ArrayList<Integer> acceptingStates = new ArrayList<>();
+        ArrayList<Integer> acceptingStates = new ArrayList<Integer>();
         String alphabet;
         
         
@@ -103,11 +103,11 @@ public class DFABuilder
         HashMap<Integer, State> originalStates = insane.getStates();
         
         // Create a list for storing reachable states and initialize it with the INITIAL_STATE.
-        ArrayList<Integer> reachableStates = new ArrayList<>();
+        ArrayList<Integer> reachableStates = new ArrayList<Integer>();
         reachableStates.add(DFA.INITIAL_STATE_ID);
         
         // Also create a new list of final states, in case some in the original set are dropped.
-        ArrayList<Integer> newFinals = new ArrayList<>();
+        ArrayList<Integer> newFinals = new ArrayList<Integer>();
         
         // Now, go through every reachable state and add in all other new states directly reachable from it.
         // This loop iterates over the size of the reachableStates array, which may grow as new states are found.

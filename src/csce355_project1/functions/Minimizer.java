@@ -110,10 +110,10 @@ public class Minimizer
             //    An ArrayList that keeps track of states that have already been added, to ensure that the final DFA contains only distinguishable states.
             //    An ArrayList that keeps track of final states that have been kept (since some final states may be merged into existing ones).
             //    A HashMap that maps former states to their indistinguishable equivalent that has already been added.
-            ArrayList<Integer> addedStates = new ArrayList<>();
-            ArrayList<Integer> addedFinals = new ArrayList<>();
+            ArrayList<Integer> addedStates = new ArrayList<Integer>();
+            ArrayList<Integer> addedFinals = new ArrayList<Integer>();
             
-            HashMap<Integer, Integer> indistinguishables = new HashMap<>();
+            HashMap<Integer, Integer> indistinguishables = new HashMap<Integer, Integer >();
             
             for (int p = 0; p < numberSaneStates; p++)
             {

@@ -29,6 +29,39 @@ public class Main
             System.exit(0);
         }
         
+        /* JAVA 6 Source -- compatible with Linux Lab machines */
+        String firstArg = args[0];
+        
+        if (firstArg.equals("simulate") || firstArg.equals("s"))
+        {
+            if (args.length < 3) { Messenger.printUsage(); System.exit(0); }
+                
+            Simulator.run(args[1], args[2]);
+        }
+        else if (firstArg.equals("minimize") || firstArg.equals("m"))
+        {
+            Minimizer.run(args[1]);
+        }
+        else if (firstArg.equals("textsearch") || firstArg.equals("t"))
+        {
+            TextSearch.run(args[1]);
+        }
+        else if (firstArg.equals("compl-int") || firstArg.equals("c"))
+        {
+            ComplementIntersect.run(args);
+        }
+        else if (firstArg.equals("homomorphic") || firstArg.equals("h"))
+        {
+            if (args.length < 3) { Messenger.printUsage(); System.exit(0);}
+                
+            Homomorphic.run(args[1], args[2]);
+        }
+        else if (firstArg.equals("analyze") || firstArg.equals("a"))
+        {
+            Analyzer.run(args[1]);
+        }
+        
+        /* JAVA 8 Source -- incompatible with Linux Lab machines' Java 6.
         switch (args[0])
         {
             case "simulate":
@@ -70,6 +103,7 @@ public class Main
                 Messenger.printUsage();
                 break;
         }
+        */
     }
     
 }

@@ -29,7 +29,7 @@ public class DFA
      */
     public DFA(String alphabet, ArrayList<Integer> acceptingStates)
     {
-        states = new HashMap<>();
+        states = new HashMap<Integer, State>();
         this.acceptingStates = acceptingStates;
         this.alphabet = alphabet;
     }
@@ -162,7 +162,7 @@ public class DFA
     @Override
     public String toString()
     {
-        String newline = System.lineSeparator();
+        String newline = System.getProperty("line.separator", "\n");
         StringBuilder builder = new StringBuilder();
         
         builder.append("Number of states: ").append(states.size()).append(newline);

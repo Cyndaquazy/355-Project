@@ -19,7 +19,7 @@ public class State
     
     State(int id, boolean isAccepting)
     {
-        transitions = new HashMap<>();
+        transitions = new HashMap<Character, State>();
         this.identifier = id;
         this.isAccepting = isAccepting;
     }

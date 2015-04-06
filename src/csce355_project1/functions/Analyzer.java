@@ -27,9 +27,9 @@ public class Analyzer
             DFA dfa = DFABuilder.makeSaneDFA(insaneDFA);
             
             char[] alphabetArray = dfa.getAlphabet().toCharArray();
-            HashSet<Integer> foundStates = new HashSet<>();
-            HashSet<Integer> statesLoopedTo = new HashSet<>();
-            HashSet<Integer> finalStates = new HashSet<>();
+            HashSet<Integer> foundStates = new HashSet<Integer>();
+            HashSet<Integer> statesLoopedTo = new HashSet<Integer>();
+            HashSet<Integer> finalStates = new HashSet<Integer>();
             
             foundStates.add(DFA.INITIAL_STATE_ID);
             
