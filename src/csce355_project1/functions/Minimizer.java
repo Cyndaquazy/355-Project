@@ -19,12 +19,27 @@ public class Minimizer
 {
     public static void run(String descriptionFileName)
     {
-        
         try
         {
             // Load the DFA from the file specification.
             DFA dfa = DFABuilder.loadFromFile(descriptionFileName);
             
+            DFA minDFA = minimize(dfa);
+            
+            // Print the new minimal DFA to standard out.
+            System.out.println(minDFA.toString());
+            
+        }
+        catch (Exception e)
+        {
+            
+        }
+    }
+    
+    public static DFA minimize(DFA dfa)
+    {
+        try
+        {
             // Make that DFA sane (i.e. remove all states not accessible from the start state).
             DFA saneDFA = DFABuilder.makeSaneDFA(dfa);
             
@@ -170,13 +185,14 @@ public class Minimizer
                 }
             }
             
-            // Print the new minimal DFA to standard out.
-            System.out.println(minimalDFA.toString());
+            return minimalDFA;
             
         }
         catch (Exception e)
         {
             Messenger.error(e.getMessage());
         }
+        
+        return null;
     }
 }

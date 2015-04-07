@@ -1,4 +1,5 @@
 src/csce355_project1/dfa/State.java
+src/csce355_project1/dfa/Homomorphism.java
 src/csce355_project1/dfa/DFA.java
 src/csce355_project1/dfa/DFABuilder.java
 src/csce355_project1/functions/Analyzer.java

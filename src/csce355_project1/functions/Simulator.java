@@ -31,7 +31,7 @@ public class Simulator
                 String input = reader.readLine().trim();
                 boolean accept = dfa.doesAccept(input);
                 
-                Messenger.info(String.format("%s... %s", input, (accept ? "Accept" : "Reject")));
+                System.out.printf("%s", (accept ? "Accept" : "Reject"));
             }
         }
         catch (Exception e)

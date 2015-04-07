@@ -90,6 +90,24 @@ public class DFABuilder
         return theDFA;
     }
     
+    public static Homomorphism loadHomomorphismFromFile(String fileName) throws IOException
+    {
+        BufferedReader read = new BufferedReader(new FileReader(fileName));
+        
+        String sigma = read.readLine().substring(16);
+        String gamma = read.readLine().substring(17);
+        
+        Homomorphism homo = new Homomorphism(sigma, gamma);
+        
+        for (int i  = 0; i < sigma.length(); i++)
+        {
+            String output = read.readLine();
+            homo.addMapping(sigma.charAt(i), output);
+        }
+        
+        return homo;
+    }
+    
     /**
      * Transforms the given DFA into a sane DFA. A sane DFA is a DFA where all states are accessible from the initial state.
      * @param insane The DFA to make sane.

@@ -64,6 +64,11 @@ public class DFA
     {
         State s = new State(identifier, acceptingStates.contains(identifier));
         states.put(identifier, s);
+        
+        for (char c : alphabet.toCharArray())
+        {
+            s.addTransition(c, s);
+        }
     }
     
     /**
@@ -192,21 +197,42 @@ public class DFA
         return builder.toString().trim();
     }
     
+    
+    /**
+     * Directly gets the state set for this DFA.
+     * @return The state set for this DFA.
+     */
     public HashMap<Integer, State> getStates()
     {
         return states;
     }
     
+    /**
+     * Gets the final states for this DFA.
+     * @return the final states for this DFA.
+     */
     public ArrayList<Integer> getFinalStates()
     {
         return acceptingStates;
     }
     
+    /**
+     * Gets the alphabet for this DFA.
+     * @return the alphabet for this DFA.
+     */
     public String getAlphabet()
     {
         return alphabet;
     }
     
+    /**
+     * Directly adds the given state to this DFA.
+     * 
+     * Use this function only when you are sure that transitions out of the provided state will point to a state in
+     * the DFA. Instead, use the {@link allocateNewState} function to create a new state and add transitions using
+     * {@link addTransition}.
+     * @param s The state to add.
+     */
     void addStateDirectly(State s)
     {
         states.put(s.getIdentifier(), s);

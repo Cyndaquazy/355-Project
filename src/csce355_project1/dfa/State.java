@@ -15,7 +15,7 @@ public class State
 {
     private final HashMap<Character, State> transitions;
     private final int identifier;
-    private final boolean isAccepting;
+    private boolean isAccepting;
     
     State(int id, boolean isAccepting)
     {
@@ -34,12 +34,17 @@ public class State
         return transitions.get(c);
     }
     
-    boolean isAccepting()
+    public boolean isAccepting()
     {
         return this.isAccepting;
     }
     
-    int getIdentifier()
+    public void setAccepting(boolean b)
+    {
+        this.isAccepting = b;
+    }
+    
+    public int getIdentifier()
     {
         return this.identifier;
     }

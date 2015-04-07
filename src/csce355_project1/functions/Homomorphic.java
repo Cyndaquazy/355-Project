@@ -6,6 +6,9 @@
 package csce355_project1.functions;
 
 import csce355_project1.Messenger;
+import csce355_project1.dfa.DFA;
+import csce355_project1.dfa.DFABuilder;
+import csce355_project1.dfa.Homomorphism;
 
 /**
  *
@@ -15,6 +18,39 @@ public class Homomorphic
 {
     public static void run(String dfaFileName, String homomorphFileName)
     {
-        Messenger.info("Transforming");
+        try
+        {
+            DFA dfa = DFABuilder.loadFromFile(dfaFileName);
+            
+            Homomorphism homo = DFABuilder.loadHomomorphismFromFile(homomorphFileName);
+            
+            String homoInput = homo.getInputAlphabet();
+            
+            DFA inverseHomo = new DFA(homoInput, dfa.getFinalStates());
+            
+            for (int i = 0; i < dfa.getNumberOfStates(); i++)
+            {
+                inverseHomo.allocateNewState(i);
+            }
+            
+            for (int i = 0; i < dfa.getNumberOfStates(); i++)
+            {
+                for (char c : homoInput.toCharArray())
+                {
+                    String output = homo.evaluate(c);
+                    int transID = dfa.partialRead(i, output);
+                    
+                    inverseHomo.addTransition(i, transID, c);
+                }
+            }
+            
+            System.out.println(inverseHomo.toString());
+            
+            
+        }
+        catch (Exception e)
+        {
+            Messenger.error(e.getMessage());
+        }
     }
 }
