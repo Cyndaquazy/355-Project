@@ -11,10 +11,10 @@ CLS_FUNC_FILES = $(CLS_BASE_DIR)/functions/Analyzer.class $(CLS_BASE_DIR)/functi
 CLS_MAIN_FILES = $(CLS_BASE_DIR)/Main.class $(CLS_BASE_DIR)/Messenger.class
 
 proj1.jar : $(DFA_FILES) $(FUNC_FILES) $(MAIN_FILES)
-	rm -fr proj1.jar compiled/classes/* compiled/srcs/*
+	rm -fr proj1.jar bin
+	mkdir bin
 	javac @options @classes
-	jar cvfe proj1.jar csce355_project1.Main -C compiled/classes/ $(CLS_MAIN_FILES) $(CLS_FUNC_FILES) $(CLS_DFA_FILES)
-	cd ../../
+	jar cvfe proj1.jar csce355_project1.Main -C bin/ .
 
 clean : 
-	rm -fr proj1.jar compiled/classes/* compiled/srcs/*
+	rm -fr proj1.jar bin
