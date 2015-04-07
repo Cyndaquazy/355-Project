@@ -13,7 +13,7 @@ CLS_MAIN_FILES = $(CLS_BASE_DIR)/Main.class $(CLS_BASE_DIR)/Messenger.class
 proj1.jar : $(DFA_FILES) $(FUNC_FILES) $(MAIN_FILES)
 	rm -fr proj1.jar bin
 	mkdir bin
-	javac @options @classes
+	javac @compilerConfig/options @compilerConfig/classes
 	jar cvfe proj1.jar csce355_project1.Main -C bin/ .
 
 clean : 
