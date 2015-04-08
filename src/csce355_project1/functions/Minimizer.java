@@ -98,8 +98,7 @@ public class Minimizer
                 }
             } while (markedNewGrid);
             
-            
-            /*//[---
+            //[---
             // One no more new pairs were marked, print distinguishable table to standard error (System.err)
             System.err.print("   |");
             
@@ -119,7 +118,7 @@ public class Minimizer
                 }
                 System.err.println();
             }
-            //---]*/
+            //---]
             
             // Now its time to merge the states. To do so, there are three structures:
             //    An ArrayList that keeps track of states that have already been added, to ensure that the final DFA contains only distinguishable states.
@@ -156,13 +155,13 @@ public class Minimizer
                 }
             }
             
-            // Finally, initialize a new DFA that will become the minimal one.
-            DFA minimalDFA = new DFA(alphabet, addedFinals);
+            // Initialize a new DFA that will eventually become the minimal one. This one, however, will not have the right IDs.
+            DFA intermediateDFA = new DFA(alphabet, addedFinals);
             
             // addedStates now contains only pair-wise distinguishable states, so allocate new states for them in the minimal DFA.
             for (int stateID : addedStates)
             {
-                minimalDFA.allocateNewState(stateID);
+                intermediateDFA.allocateNewState(stateID);
             }
             
             // Lastly, add in the transitions to make it a functional automaton.
@@ -174,23 +173,54 @@ public class Minimizer
                     
                     if (addedStates.contains(trans)) // If that original is in the disting. list, then simply "copy" the transition to the minimal DFA. 
                     {
-                        minimalDFA.addTransition(stateID, trans, c);
+                        intermediateDFA.addTransition(stateID, trans, c);
                     }
                     else
                     {
                         // If the original destination was indistinguishable from another state, reroute the transition to that new state.
                         int distinguishedState = indistinguishables.get(trans);
-                        minimalDFA.addTransition(stateID, distinguishedState, c);
+                        intermediateDFA.addTransition(stateID, distinguishedState, c);
                     }
                 }
             }
             
+            /*
+            Messenger.error(intermediateDFA.getStateIDs().toString());
+            
+            HashMap<Integer, State> ultimateStates = new HashMap<Integer, State>();
+            ArrayList<Integer> ultimateFinals = new ArrayList<Integer>();
+            
+            int trueID = 0;
+            for (int i : intermediateDFA.getStateIDs())
+            {
+                State s = intermediateDFA.getStates().get(i);
+                s.setIdentifier(trueID);
+                ultimateStates.put(trueID, s);
+                
+                if (intermediateDFA.isAcceptingState(i))
+                {
+                    ultimateFinals.add(trueID);
+                }
+                
+                trueID++;
+            }
+            
+            DFA minimalDFA = new DFA(alphabet, ultimateFinals);
+            
+            for (int k : ultimateStates.keySet())
+            {
+                minimalDFA.addStateDirectly(ultimateStates.get(k));
+            }
+            
             return minimalDFA;
+            */
+            return intermediateDFA;
             
         }
         catch (Exception e)
         {
             Messenger.error(e.getMessage());
+            e.printStackTrace();
         }
         
         return null;

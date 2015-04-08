@@ -14,7 +14,7 @@ proj1.jar : $(DFA_FILES) $(FUNC_FILES) $(MAIN_FILES)
 	rm -fr proj1.jar bin
 	mkdir bin
 	javac @compilerConfig/options @compilerConfig/classes
-	jar cvfe proj1.jar csce355_project1.Main -C bin/ .
+	jar cvfe proj1.jar csce355_project1.Main -C compiled/ .
 
 clean : 
 	rm -fr proj1.jar bin

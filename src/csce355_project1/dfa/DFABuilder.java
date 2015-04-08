@@ -152,15 +152,34 @@ public class DFABuilder
             }
         }
 
-        // Propery initialize the new saneDFA object.
-        DFA saneDFA = new DFA(originalAlphabet, newFinals);
+        HashMap<Integer, State> newStates = new HashMap<Integer, State>();
+        ArrayList<Integer> newnewFinals = new ArrayList<Integer>();
+        
+        for (int i = 0; i < reachableStates.size(); i++)
+        {
+            int oldID = reachableStates.get(i);
+            
+            State s = originalStates.get(oldID);
+            s.setIdentifier(i);
+            newStates.put(i, s);
+            
+            reachableStates.set(i, i);
+            
+            if (newFinals.contains(oldID))
+            {
+                newnewFinals.add(i);
+            }
+        }
+        
+        // Properly initialize the new saneDFA object.
+        DFA saneDFA = new DFA(originalAlphabet, newnewFinals);
         
         // Add to that DFA only the states reachable from the start state.
         // We can be sure that even when adding the states directly that there are no lost references, since if a state
         // is pointed by a state in the reachable set, then it is also in the reachable set.
         for (int stateID : reachableStates)
         {
-            saneDFA.addStateDirectly(originalStates.get(stateID));
+            saneDFA.addStateDirectly(newStates.get(stateID));
         }
         
         return saneDFA;

@@ -209,6 +209,11 @@ public class DFA
         return states;
     }
     
+    public Set<Integer> getStateIDs()
+    {
+        return states.keySet();
+    }
+    
     /**
      * Gets the final states for this DFA.
      * @return the final states for this DFA.
@@ -235,7 +240,7 @@ public class DFA
      * {@link addTransition}.
      * @param s The state to add.
      */
-    void addStateDirectly(State s)
+    public void addStateDirectly(State s)
     {
         states.put(s.getIdentifier(), s);
     }

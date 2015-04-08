@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class State
 {
     private final HashMap<Character, State> transitions;
-    private final int identifier;
+    private int identifier;
     private boolean isAccepting;
     
     State(int id, boolean isAccepting)
@@ -47,6 +47,11 @@ public class State
     public int getIdentifier()
     {
         return this.identifier;
+    }
+    
+    public void setIdentifier(int i)
+    {
+        this.identifier = i;
     }
     
     @Override

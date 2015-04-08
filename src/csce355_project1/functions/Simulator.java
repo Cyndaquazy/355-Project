@@ -31,7 +31,7 @@ public class Simulator
                 String input = reader.readLine().trim();
                 boolean accept = dfa.doesAccept(input);
                 
-                System.out.printf("%s", (accept ? "Accept" : "Reject"));
+                System.out.printf("%s", (accept ? "A" : "R"));
             }
         }
         catch (Exception e)
