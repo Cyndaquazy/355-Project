@@ -26,13 +26,10 @@ public class TextSearch
         {
             Scanner l = new Scanner(new FileInputStream(searchStringFileName));
             String searchString = l.nextLine().trim();
-
-            Messenger.info(searchString);
-
             l.close();
 
             int numberStates = searchString.length() + 1;
-            Messenger.info(String.valueOf(numberStates));
+            
             ArrayList<Integer> finals = new ArrayList<Integer>();
             finals.add(numberStates - 1);
 
@@ -50,8 +47,6 @@ public class TextSearch
             for (int i = 1; i < numberStates-1; i++)
             {
                 StringBuilder prefixRead = new StringBuilder(searchString.substring(0, 0+i));
-
-                Messenger.info(prefixRead.toString());
                 
                 for (char c : alchars)
                 {
