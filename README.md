@@ -26,7 +26,7 @@ Read the desription of a DFA from a text file and write (to `stdout`) the descri
 
 Read a string *w* from a text, and write to `stdout` the description of a DFA that accepts a string *x* if and only if *w* is a substring of *x*.
 
-*Status*: **Implementation Unlikely**
+*Status*: **Implemented**
 
 *****
 ##### (4) Complement and Intersection

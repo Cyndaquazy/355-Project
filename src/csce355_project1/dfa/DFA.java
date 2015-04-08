@@ -57,7 +57,9 @@ public class DFA
     }
     
     /**
-     * Creates a new state with the given identifier then adds the empty state to this DFA.
+     * Creates a new state with the given identifier then adds the empty state to this DFA. To enforce determinism, this
+     * method also pre-adds self-loop transitions for all symbols in the alphabet. These can be safely overwritten for
+     * new transitions.
      * @param identifier the identifier of the state to add.
      */
     public void allocateNewState(int identifier)
