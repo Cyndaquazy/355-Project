@@ -99,7 +99,7 @@ public class Minimizer
             } while (markedNewGrid);
             
             
-            //[---
+            /*//[---
             // One no more new pairs were marked, print distinguishable table to standard error (System.err)
             System.err.print("   |");
             
@@ -119,7 +119,7 @@ public class Minimizer
                 }
                 System.err.println();
             }
-            //---]
+            //---]*/
             
             // Now its time to merge the states. To do so, there are three structures:
             //    An ArrayList that keeps track of states that have already been added, to ensure that the final DFA contains only distinguishable states.
