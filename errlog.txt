@@ -1,0 +1,7 @@
+comments.txt exists -- making backup comments.bak
+make: `proj1.jar' is up to date.
+make: `proj1.jar' is up to date.
+
+Done.
+Comments are in ./comments.txt
+

@@ -2,4 +2,4 @@ Build:
 make
 
 Run:
-simulator
+java -jar proj1.jar simulate

@@ -2,4 +2,4 @@ Build:
 make
 
 Run:
-invhom
+java -jar proj1.jar homomorphic
