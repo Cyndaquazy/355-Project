@@ -19,21 +19,21 @@ After reading the description of a DFA *N* from a text file, read any number of 
 
 Read the desription of a DFA from a text file and write (to `stdout`) the description of a minimal equivalent DFA.
 
-- [ ] **Skipped**
+- [ ] ~~Skipped~~
 
 *****
 ##### (3) Text Search
 
 Read a string *w* from a text, and write to `stdout` the description of a DFA that accepts a string *x* if and only if *w* is a substring of *x*.
 
-- [ ] **Skipped**
+- [ ] ~~Skipped~~
 
 *****
 ##### (4) Complement and Intersection
 
 Read one or two descriptions of DFAs from text files (depending on the type of transformation asked for) and write to `stdout` a description of the transformed DFA &mdash; either the complementary DFA or the product construction.
 
-- [ ] **Skipped**
+- [ ] ~~Skipped~~
 
 *****
 ##### (5) Inverse Homomorphic Image
@@ -47,4 +47,4 @@ Read the descriptions of a DFA *N* and a homomorphism *h* and write to `stdout` 
 
 Read from a text file the descriptions of a DFA *A* and write to `stdout` whether or not *L(A)* is empty and whether or not *L(A)* is infinite.
 
-- [ ] **Skipped**
+- [ ] ~~Skipped~~
